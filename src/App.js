@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import './App.css'
+import Navigation from './navigation/navigation'
+import { Route, Switch, withRouter } from 'react-router-dom'
+import { isAuthenticated } from './selectors'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Home from './pages/home-page'
+
+class App extends Component {
+	render() {
+		return (
+			<div className="page">
+				<Navigation />
+				<Switch>
+					<Route exact path="/" component={Home} />
+					<Route path="/login" component={Home} />
+					<Route component={Home} />
+				</Switch>
+			</div>
+		)
+	}
+}
+const mapStateToProps = state => {
+	return {
+		isAuthenticated: isAuthenticated(state),
+	}
 }
 
-export default App;
+export default withRouter(
+	connect(
+		mapStateToProps,
+		null
+	)(App)
+)
