@@ -1,4 +1,4 @@
-.home-page {
+.photo-page {
   margin: 2rem;
 }
 
@@ -36,3 +36,27 @@
   flex-flow: row nowrap;
   justify-content: space-evenly;
 }
+
+
+
+.form-login {
+  width: 80%;
+}
+
+.form-text {
+  color: blue;
+}
+
+.photo-card {
+  margin: 1rem;
+  width: 20%;
+  border: 1px solid #ccc;
+}
+
+.album {
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid red;
+}
+
+.album-gallery {}
