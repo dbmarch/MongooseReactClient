@@ -22,6 +22,11 @@ const Navigation = ({ isAuthenticated, authenticatedUser, logout }) => {
 			</Nav.Link>
 
 
+			<Nav.Link as={NavLink} to="/websocket" eventKey="1">
+				WebSocket{' '}
+			</Nav.Link>
+
+
 			{!isAuthenticated && (
 				<Nav.Link as={NavLink} to="/login" eventKey="4" className="ml-auto mr-4">
 					Sign-In

@@ -6,18 +6,25 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import { isAuthenticated } from './selectors'
 
 import Home from './pages/home-page'
+import WebSocketPage from './pages/ws-page'
+
+export const serverURI = 'http://localhost:8000'
 
 class App extends Component {
 	render() {
 		return (
-			<div className="page">
+			<React.Fragment>
 				<Navigation />
-				<Switch>
-					<Route exact path="/" component={Home} />
-					<Route path="/login" component={Home} />
-					<Route component={Home} />
-				</Switch>
-			</div>
+				<div className="page">
+					<Switch>
+						<Route exact path="/" component={Home} />
+						<Route path="/login" component={Home} />
+						<Route path="/websocket" component={WebSocketPage} />
+						<Route component={Home} />
+					</Switch>
+				</div>
+				</React.Fragment>
+
 		)
 	}
 }

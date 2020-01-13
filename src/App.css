@@ -1,6 +1,53 @@
-.photo-page {
+.page {
   margin: 2rem;
+  flex: 1;
+  height: 100vh;
+  min-height: 100vh;
 }
+
+.home-page-frame {
+  height: 100vh;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+}
+
+.home-page-top {
+  height: 30vh;
+  padding: 1rem;
+
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ccc;
+  border-radius: 3%;
+  
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+}
+
+.home-page-bottom {
+  margin: 1rem 0;
+  height: 50vh;
+  padding: 1rem;
+
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ccc;
+  border-radius: 3%;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+}
+
+.home-page-frame div.row {
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+.button-tray button {
+  margin: 0.5rem 1rem;
+}
+
+
 
 .filtered-list-box {
   margin: 2rem;
@@ -38,25 +85,3 @@
 }
 
 
-
-.form-login {
-  width: 80%;
-}
-
-.form-text {
-  color: blue;
-}
-
-.photo-card {
-  margin: 1rem;
-  width: 20%;
-  border: 1px solid #ccc;
-}
-
-.album {
-  width: 4rem;
-  height: 4rem;
-  border: 1px solid red;
-}
-
-.album-gallery {}
