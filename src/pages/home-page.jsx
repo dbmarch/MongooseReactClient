@@ -1,13 +1,14 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { connect } from 'react-redux'
 import {Row, Col, Container, Button, ButtonToolbar} from 'react-bootstrap'
 import {serverURI} from '../App.js'
 
 const HomePage = () => {
-  const message =  "Hello"
+  const [message, setMessage] = useState("---")
 
   useEffect(() => {
     const getJson = async () =>  {
+        console.info ("Fetching /json")
         const response = await fetch(`${serverURI}/json`, {
             method: 'GET',
             headers: {
@@ -16,8 +17,11 @@ const HomePage = () => {
             }
         })
 
-        const body = await response.json()
-        console.info (body.items)
+        console.info ('awaiting response')
+        const data = await response.json()
+        
+        console.info ('have response:', data)
+
     }
 
     getJson()
