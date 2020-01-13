@@ -8,11 +8,11 @@ const HomePage = () => {
 
   useEffect(() => {
     const getJson = async () =>  {
-        const response = await fetch(`${serverURI}/json/`, {
+        const response = await fetch(`${serverURI}/json`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             }
         })
 
