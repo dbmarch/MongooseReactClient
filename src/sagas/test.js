@@ -1,5 +1,5 @@
 import { takeLatest, put, call, select} from 'redux-saga/effects';
-import {setFailed, setMessage} from '../reducers'
+import {setError, setMessage} from '../actions'
 import {FETCH_JSON_HELLO} from '../actions/action-types'
 import {getUrl} from '../selectors'
 import axios from 'axios'
@@ -19,7 +19,7 @@ const requestUrl = async (url) => {
     return response
   } catch( err ) {
     console.info (err);
-    return 'error'
+    throw err
   }
 
 }
@@ -31,13 +31,14 @@ function *fetchJsonMessage () {
       const url = yield select (getUrl)
       const response = yield call(requestUrl, url);
       console.info ("requestUrl returns ", response)
+      yield put (setMessage(response.data))
       // const response = yield call(fetch, url);
       // console.info ("response", response)
       // const responseBody = response.json();
       // console.info ('responseBody', responseBody)
   } catch (e) {
       console.info (e);
-      // yield put(setFailed(e));
+      yield put(setError(e));
       return;
   }
 

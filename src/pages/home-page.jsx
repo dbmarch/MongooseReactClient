@@ -54,7 +54,7 @@ const HomePage = ({jsonMessage, fetchJsonHello }) => {
               <p>Response:</p>
             </Col>
             <Col xs={9}>
-              <p>{jsonMessage}</p>
+              <p>{JSON.stringify(jsonMessage)}</p>
             </Col>
           </Row>
         </Container>
