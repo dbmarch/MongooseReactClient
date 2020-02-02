@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
-import {Row, Col, Container, Button, ButtonToolbar} from 'react-bootstrap'
+import {Row, Col, Container, Button, ButtonToolbar, Badge, DropdownButton, Dropdown, InputGroup, FormControl, Form} from 'react-bootstrap'
 import {serverURI} from '../App.js'
 import {getJsonMessage} from '../selectors'
 import {fetchJsonHello} from '../actions'
@@ -44,6 +44,74 @@ const HomePage = ({jsonMessage, fetchJsonHello }) => {
        <Container className = 'home-page-frame'>
         <Container className='home-page-top' >
           <Row>
+            <Col>
+          <h2>Some Input</h2>
+          </Col>
+          <DropdownButton id="dropdown-basic-button" title="Dropdown button">
+            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+          </DropdownButton>
+          </Row>
+        <div>
+        
+        <Form>
+        <fieldset>
+        <Form.Row>
+          <Col>
+          <Form.Group as={Row}>
+            <Form.Label as="legend" column sm={4}>
+              Radios
+            </Form.Label>
+                <Col sm={5}>
+                  <Form.Check
+                    type="radio"
+                    label="Radio 1"
+                    name="formHorizontalRadios"
+                    id="formHorizontalRadios1"
+                  />
+                  <Form.Check
+                    type="radio"
+                    label="Radio 2"
+                    name="formHorizontalRadios"
+                    id="formHorizontalRadios2"
+                  />
+                  <Form.Check
+                    type="radio"
+                    label="Radio 3"
+                    name="formHorizontalRadios"
+                    id="formHorizontalRadios3"
+                  />
+                </Col>
+          </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group as={Row} controlId="formHorizontalCheck">
+              <Form.Label as="legend" column sm={4}>
+                  Checkboxes
+                </Form.Label>
+              <Col sm={{ span: 5, offset: 1 }}>
+                <Form.Check label="Checkbox 1" />
+                <Form.Check label="Checkbox 2" />
+                <Form.Check label="Checkbox 3" />
+              </Col>
+            </Form.Group>
+            </Col>
+          </Form.Row>
+        </fieldset>  
+      </Form>
+   <br/>
+   <Form>
+      <Form.Group as={Row}>
+        <Col sm={{ span: 10, offset: 9 }}>
+          <Button type="submit">Submit</Button>
+        </Col>
+      </Form.Group>
+    </Form>      
+  </div>
+ </Container>
+        <Container className='home-page-bottom' >
+        <Row>
             <ButtonToolbar className='button-tray'>
               <Button variant = 'outline-primary' onClick = {()=> fetchJsonHello(`${serverURI}/json`)} >JSON!</Button>
               <Button variant = 'outline-success'>Hello</Button>
@@ -56,12 +124,6 @@ const HomePage = ({jsonMessage, fetchJsonHello }) => {
             <Col xs={9}>
               <p>{JSON.stringify(jsonMessage)}</p>
             </Col>
-          </Row>
-        </Container>
-        <Container className='home-page-bottom' >
-          <Row>
-            <Col>1 of 2</Col>
-            <Col xs={9}>2 of 2</Col>
           </Row>
       </Container>
       </Container>      

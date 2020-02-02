@@ -12,7 +12,6 @@ axios.defaults.headers.get['Accept'] = 'application/json';
 const requestUrl = async (url) => {
   console.info ("requestUrl ", url)
   
-
   try {
     const response = await axios.get('json')
     console.info ('response: ', response)
@@ -32,18 +31,11 @@ function *fetchJsonMessage () {
       const response = yield call(requestUrl, url);
       console.info ("requestUrl returns ", response)
       yield put (setMessage(response.data))
-      // const response = yield call(fetch, url);
-      // console.info ("response", response)
-      // const responseBody = response.json();
-      // console.info ('responseBody', responseBody)
-  } catch (e) {
+ } catch (e) {
       console.info (e);
       yield put(setError(e));
       return;
   }
-
-  // console.info (responseBody);
-  // yield put(setRecords(responseBody);
 }
 
 export function* fetchJsonSaga() {
