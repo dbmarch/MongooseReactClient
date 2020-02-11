@@ -7,7 +7,7 @@ import {fetchJsonHello} from '../actions'
 import RadioGroup from '../components/radioGroup/radioGroup'
 import CheckboxGroup from '../components/checkboxGroup/checkboxGroup'
 import TextBox from '../components/textBox/textBox'
-
+import DropdownGroup from '../components/dropdownGroup/dropdownGroup'
 
 const radioItemList = [
   { name: "Radio Option 1", value: "value1"}, 
@@ -24,11 +24,20 @@ const checkedItemList = [
 ]
 const defaultCheckedItem = []
 
+const dropdownList = [
+  { name: "ITEM 1", value: "item1"}, 
+  { name: "ITEM 2", value: "item2"},
+  { name: "ITEM 3", value: "item3"},
+  { name: "ITEM 4", value: "item4"},
+]
+
+
 const HomePage = ({jsonMessage, fetchJsonHello }) => {
   // const [message, setMessage] = useState("---")
   const [radioOption,setRadioOption] = useState(defaultRadioItem)
   const [checkedOption,setCheckedOption] = useState(defaultCheckedItem)
   const [text, setText] = useState('')
+  const [dropdownValue, setDropdownValue] = useState('')
 
   useEffect( () => {
     console.info ('fetch ', `${serverURI}/json`)
@@ -63,7 +72,8 @@ const HomePage = ({jsonMessage, fetchJsonHello }) => {
     const formData = {
       radioOption,
       checkedOption,
-      text
+      text, 
+      dropdownValue
     }
     console.info ("Submit Form", formData )
   }
@@ -76,11 +86,10 @@ const HomePage = ({jsonMessage, fetchJsonHello }) => {
             <Col>
           <h2>Some Input</h2>
           </Col>
-          <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-          </DropdownButton>
+          <DropdownGroup 
+            list = {dropdownList} 
+            onChange = {value=>setDropdownValue(value)}
+            />
           </Row>
         <div>
         
