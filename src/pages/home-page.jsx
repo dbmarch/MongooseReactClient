@@ -1,13 +1,35 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { connect } from 'react-redux'
-import {Row, Col, Container, Button, ButtonToolbar, Badge, DropdownButton, Dropdown, InputGroup, FormControl, Form} from 'react-bootstrap'
+import {Row, Col, Container, Button, ButtonToolbar, DropdownButton, Dropdown, Form} from 'react-bootstrap'
 import {serverURI} from '../App.js'
 import {getJsonMessage} from '../selectors'
 import {fetchJsonHello} from '../actions'
+import RadioGroup from '../components/radioGroup/radioGroup'
+import CheckboxGroup from '../components/checkboxGroup/checkboxGroup'
+import TextBox from '../components/textBox/textBox'
 
+
+const radioItemList = [
+  { name: "Radio Option 1", value: "value1"}, 
+  { name: "Radio Option 2", value: "value2"},
+  { name: "Radio Option 3", value: "value3"},
+]
+const defaultRadioItem = radioItemList[0].value
+
+const checkedItemList = [
+  { name: "Checkbox 1", value: "cbvalue1"}, 
+  { name: "Checkbox 2", value: "cbvalue2"},
+  { name: "Checkbox 3", value: "cbvalue3"},
+  { name: "Checkbox 4", value: "cbvalue4"},
+]
+const defaultCheckedItem = []
 
 const HomePage = ({jsonMessage, fetchJsonHello }) => {
   // const [message, setMessage] = useState("---")
+  const [radioOption,setRadioOption] = useState(defaultRadioItem)
+  const [checkedOption,setCheckedOption] = useState(defaultCheckedItem)
+  const [text, setText] = useState('')
+
   useEffect( () => {
     console.info ('fetch ', `${serverURI}/json`)
     fetchJsonHello(`${serverURI}/json`)
@@ -37,7 +59,14 @@ const HomePage = ({jsonMessage, fetchJsonHello }) => {
 
 // }, [])
 
-
+  const handleSubmit= () => {
+    const formData = {
+      radioOption,
+      checkedOption,
+      text
+    }
+    console.info ("Submit Form", formData )
+  }
 
   return (
       <div className = "page">
@@ -55,59 +84,43 @@ const HomePage = ({jsonMessage, fetchJsonHello }) => {
           </Row>
         <div>
         
-        <Form>
+        <Form onSubmit = {e => {e.preventDefault()}}>
         <fieldset>
         <Form.Row>
-          <Col>
-          <Form.Group as={Row}>
-            <Form.Label as="legend" column sm={4}>
-              Radios
-            </Form.Label>
-                <Col sm={5}>
-                  <Form.Check
-                    type="radio"
-                    label="Radio 1"
-                    name="formHorizontalRadios"
-                    id="formHorizontalRadios1"
-                  />
-                  <Form.Check
-                    type="radio"
-                    label="Radio 2"
-                    name="formHorizontalRadios"
-                    id="formHorizontalRadios2"
-                  />
-                  <Form.Check
-                    type="radio"
-                    label="Radio 3"
-                    name="formHorizontalRadios"
-                    id="formHorizontalRadios3"
-                  />
-                </Col>
-          </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group as={Row} controlId="formHorizontalCheck">
-              <Form.Label as="legend" column sm={4}>
-                  Checkboxes
-                </Form.Label>
-              <Col sm={{ span: 5, offset: 1 }}>
-                <Form.Check label="Checkbox 1" />
-                <Form.Check label="Checkbox 2" />
-                <Form.Check label="Checkbox 3" />
-              </Col>
-            </Form.Group>
-            </Col>
+          <RadioGroup
+            groupName = "Radio Options" 
+            list = {radioItemList}
+            value = {radioOption}
+            onChange = { (value) => {
+              console.info('Radio=', value) 
+              setRadioOption(value)
+              }} 
+            />
+
+          <CheckboxGroup
+            groupName = "Checkbox Options" 
+            list = {checkedItemList}
+            value = {checkedOption}
+            onChange = { (value) => {
+              console.info('checked=', value) 
+              setCheckedOption(value)
+              }} 
+            />
+          </Form.Row>
+          <Form.Row>
+            <TextBox name = "label" placeholder="Description" onChange = { (value) => {
+              console.info('NewText = ', value)
+              setText(value)
+            }}>Some Text</TextBox>
           </Form.Row>
         </fieldset>  
       </Form>
    <br/>
-   <Form>
       <Form.Group as={Row}>
         <Col sm={{ span: 10, offset: 9 }}>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" onClick={handleSubmit}>Submit</Button>
         </Col>
       </Form.Group>
-    </Form>      
   </div>
  </Container>
         <Container className='home-page-bottom' >

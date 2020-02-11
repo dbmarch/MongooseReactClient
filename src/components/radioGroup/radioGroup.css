@@ -1,0 +1,10 @@
+.radio-group-container {
+  border: 1px solid #ccc;
+  border-radius: 5%;
+  margin: 1rem;
+
+}
+
+.radio-group-label {
+  padding-top: 0.5rem;
+}

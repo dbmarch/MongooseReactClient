@@ -1,0 +1,9 @@
+.checkbox-group-container {
+  border: 1px solid #ccc;
+  border-radius: 5%;
+
+}
+
+.checkbox-group-label {
+  padding-top: 0.5rem;
+}
