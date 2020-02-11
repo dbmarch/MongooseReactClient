@@ -12,6 +12,7 @@ const DropdownGroup = ({list, onChange}) => {
 
   return (<div>
     <DropdownButton 
+      variant = "outline-primary"
       id="dropdown-basic-button" 
       alignRight
       title={selected.name}>
