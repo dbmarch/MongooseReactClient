@@ -1,43 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
-import {Row, Col, Container, Button, ButtonToolbar, DropdownButton, Dropdown, Form} from 'react-bootstrap'
+import {Row, Col, Container, Button, ButtonToolbar} from 'react-bootstrap'
+import Alert from 'react-bootstrap/Alert'
 import {serverURI} from '../App.js'
-import {getJsonMessage} from '../selectors'
-import {fetchJsonHello} from '../actions'
-import RadioGroup from '../components/radioGroup/radioGroup'
-import CheckboxGroup from '../components/checkboxGroup/checkboxGroup'
-import TextBox from '../components/textBox/textBox'
-import DropdownGroup from '../components/dropdownGroup/dropdownGroup'
-
-const radioItemList = [
-  { name: "Radio Option 1", value: "value1"}, 
-  { name: "Radio Option 2", value: "value2"},
-  { name: "Radio Option 3", value: "value3"},
-]
-const defaultRadioItem = radioItemList[0].value
-
-const checkedItemList = [
-  { name: "Checkbox 1", value: "cbvalue1"}, 
-  { name: "Checkbox 2", value: "cbvalue2"},
-  { name: "Checkbox 3", value: "cbvalue3"},
-  { name: "Checkbox 4", value: "cbvalue4"},
-]
-const defaultCheckedItem = []
-
-const dropdownList = [
-  { name: "ITEM 1", value: "item1"}, 
-  { name: "ITEM 2", value: "item2"},
-  { name: "ITEM 3", value: "item3"},
-  { name: "ITEM 4", value: "item4"},
-]
+import {getJsonMessage, getExampleError} from '../selectors'
+import {fetchJsonHello, postExample} from '../actions'
+import ExampleForm from '../containers/exampleForm'
 
 
-const HomePage = ({jsonMessage, fetchJsonHello }) => {
-  // const [message, setMessage] = useState("---")
-  const [radioOption,setRadioOption] = useState(defaultRadioItem)
-  const [checkedOption,setCheckedOption] = useState(defaultCheckedItem)
-  const [text, setText] = useState('')
-  const [dropdownValue, setDropdownValue] = useState('')
+const HomePage = ({jsonMessage, fetchJsonHello, postExample, exampleError }) => {
 
   useEffect( () => {
     console.info ('fetch ', `${serverURI}/json`)
@@ -45,93 +16,25 @@ const HomePage = ({jsonMessage, fetchJsonHello }) => {
   }, [ fetchJsonHello ]
  )
 
- //   useEffect(() => {
-//     const getJson = async () =>  {
-//         console.info ("Fetching /json")
-//         try {
-//             const response = await fetch(`${serverURI}/json`, {
-//               method: 'GET',
-//               headers: {
-//                   Accept: 'application/json',
-//                   'Content-Type': 'application/json',
-//               }
-//           })
-//           console.info ('awaiting response')
-//           const data = await response.json()
-//           console.info ('have response:', data)
-//         } catch (err) {
-//           console.info ("Fetch Failed", err);
-//         }
-//     }
-
-//     getJson()
-
-// }, [])
-
-  const handleSubmit= () => {
-    const formData = {
-      radioOption,
-      checkedOption,
-      text, 
-      dropdownValue
-    }
-    console.info ("Submit Form", formData )
+  const handleSubmit= (formData) => {
+    console.info ("Submit Form:", formData )
+    // Post the data to the server
+    postExample(formData)
   }
+
+  console.info ("ExampleError: ", exampleError )
 
   return (
       <div className = "page">
        <Container className = 'home-page-frame'>
         <Container className='home-page-top' >
-          <Row>
-            <Col>
-          <h2>Some Input</h2>
-          </Col>
-          <DropdownGroup 
-            list = {dropdownList} 
-            onChange = {value=>setDropdownValue(value)}
-            />
-          </Row>
-        <div>
-        
-        <Form onSubmit = {e => {e.preventDefault()}}>
-        <fieldset>
-        <Form.Row>
-          <RadioGroup
-            groupName = "Radio Options" 
-            list = {radioItemList}
-            value = {radioOption}
-            onChange = { (value) => {
-              console.info('Radio=', value) 
-              setRadioOption(value)
-              }} 
-            />
+          <ExampleForm onSubmit = {handleSubmit}/>
+        </Container>
+        { exampleError && (
+          <Alert variant="danger">
+					  <div>ERROR: {exampleError} </div>
+  				</Alert> )}
 
-          <CheckboxGroup
-            groupName = "Checkbox Options" 
-            list = {checkedItemList}
-            value = {checkedOption}
-            onChange = { (value) => {
-              console.info('checked=', value) 
-              setCheckedOption(value)
-              }} 
-            />
-          </Form.Row>
-          <Form.Row>
-            <TextBox name = "label" placeholder="Description" onChange = { (value) => {
-              console.info('NewText = ', value)
-              setText(value)
-            }}>Some Text</TextBox>
-          </Form.Row>
-        </fieldset>  
-      </Form>
-   <br/>
-      <Form.Group as={Row}>
-        <Col sm={{ span: 10, offset: 9 }}>
-          <Button type="submit" onClick={handleSubmit}>Submit</Button>
-        </Col>
-      </Form.Group>
-  </div>
- </Container>
         <Container className='home-page-bottom' >
         <Row>
             <ButtonToolbar className='button-tray'>
@@ -155,17 +58,44 @@ const HomePage = ({jsonMessage, fetchJsonHello }) => {
 
 const mapStateToProps = state => {
   return {
-    jsonMessage:     getJsonMessage(state)
+    jsonMessage:     getJsonMessage(state),
+    exampleError:    getExampleError(state),
 
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchJsonHello: (url) => dispatch(fetchJsonHello(url))
-
+  fetchJsonHello: (url) => dispatch(fetchJsonHello(url)),
+  postExample: (data) => dispatch(postExample(data))
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(HomePage)
+
+
+
+// If we want to just access the URL in this function vs using a saga and store:
+ //   useEffect(() => {
+//     const getJson = async () =>  {
+//         console.info ("Fetching /json")
+//         try {
+//             const response = await fetch(`${serverURI}/json`, {
+//               method: 'GET',
+//               headers: {
+//                   Accept: 'application/json',
+//                   'Content-Type': 'application/json',
+//               }
+//           })
+//           console.info ('awaiting response')
+//           const data = await response.json()
+//           console.info ('have response:', data)
+//         } catch (err) {
+//           console.info ("Fetch Failed", err);
+//         }
+//     }
+
+//     getJson()
+
+// }, [])

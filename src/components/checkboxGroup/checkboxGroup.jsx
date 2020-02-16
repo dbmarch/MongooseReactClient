@@ -34,7 +34,7 @@ const CheckboxGroup = ({groupName, list, value, onChange}) => {
             name={groupName}
             label={item.name}
             value ={item.value}
-            id = {item.value}
+            id = {item.value} 
             key={item.value}
             checked= {checkboxOption.includes(item.value) }
             onChange={()=>handleOnChange(item.value)}
