@@ -8,6 +8,7 @@ function *postExample () {
   console.info ("postExample")
   try {
       const data = yield select(getPostExampleData)
+      console.info ("data ", data)
       const response = yield call(axios.post, 'example', data);
       console.info ("requestUrl returns ", response)
       // yield put (setMessage(response.data))
