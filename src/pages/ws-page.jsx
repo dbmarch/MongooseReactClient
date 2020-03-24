@@ -31,7 +31,7 @@ export const WebSocketPage = () => {
     currentSocketUrl === SOCKET_URL_ONE ? setCurrentSocketUrl(SOCKET_URL_TWO) : setCurrentSocketUrl (SOCKET_URL_ONE)
   }, [currentSocketUrl])
 
-  const handleClickSendMessage = useCallback(() => sendMessage('Hello'), [sendMessage])
+  const handleClickSendMessage = useCallback(() => sendMessage(JSON.stringify({action: 'Hello', args: 'again'})), [sendMessage])
  
   useEffect(() => {
     if (lastMessage !== null) {
