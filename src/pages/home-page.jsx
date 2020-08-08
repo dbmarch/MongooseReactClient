@@ -6,7 +6,7 @@ import {serverURI} from '../App.js'
 import {getJsonMessage, getExampleError} from '../selectors'
 import {fetchJsonHello, postExample} from '../actions'
 import ExampleForm from '../containers/exampleForm'
-
+import ConfigFileForm from '../containers/configFileForm'
 
 const HomePage = ({jsonMessage, fetchJsonHello, postExample, exampleError }) => {
 
@@ -22,6 +22,7 @@ const HomePage = ({jsonMessage, fetchJsonHello, postExample, exampleError }) => 
     postExample(formData)
   }
 
+
   console.info ("ExampleError: ", exampleError )
 
   return (
@@ -34,6 +35,8 @@ const HomePage = ({jsonMessage, fetchJsonHello, postExample, exampleError }) => 
           <Alert variant="danger">
 					  <div>ERROR: {exampleError} </div>
   				</Alert> )}
+          
+          <ConfigFileForm />
 
         <Container className='home-page-bottom' >
         <Row>

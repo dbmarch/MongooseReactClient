@@ -38,6 +38,22 @@
   justify-content: flex-start;
 }
 
+.form-container {
+  margin: 1rem 0;
+  /* height: 50vh; */
+  padding: 1rem;
+
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ccc;
+  border-radius: 3%;
+}
+
+.drop-box {
+  background-color: burlywood;
+  width: 10rem;
+  height: 10rem;
+}
+
 .home-page-frame div.row {
   margin: 1rem 0;
   font-weight: bold;
