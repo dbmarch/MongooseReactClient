@@ -16,3 +16,5 @@ export const getExample = actionCreator (action.GET_EXAMPLE)
 export const putExample = actionCreator (action.PUT_EXAMPLE)
 export const postExample = actionCreator (action.POST_EXAMPLE)
 export const errorExample = actionCreator(action.ERROR_EXAMPLE)
+
+export const saveConfiguration = actionCreator(action.SAVE_CONFIGURATION)

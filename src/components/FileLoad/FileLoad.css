@@ -1,0 +1,17 @@
+
+.drop-box {
+  width: 8rem;
+  height: 8rem;
+  /* flex: 1; */
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  color: #007bff;
+  font-weight: normal;
+  
+  border-radius: 5px;
+  border: 1px solid #007bff;
+  margin: 8px 16px;
+}

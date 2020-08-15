@@ -1,43 +1,32 @@
-import React, {useState} from 'react'
-import {Row, Col, Container, Button, ButtonToolbar} from 'react-bootstrap'
+import React from 'react'
+import {Row, Container, ButtonToolbar} from 'react-bootstrap'
 import FileLoad from '../components/FileLoad/FileLoad'
-import FileSave from '../components/FileSave/FileSave'
+import JsonFileSave from '../components/JsonFileSave/JsonFileSave'
 
-const ConfigFileForm = ({onSubmit}) => {
-  const [fileName,setFileName] = useState('')
+const ConfigFileForm = ({onSubmit, config}) => {
+  const fileName = 'config.json'
 
-  const handleSubmit= () => {
-    const formData = {
-    }
+
+  const handleSubmit= (formData) => {
     console.info ("Submit Form", formData )
     onSubmit(formData)
   }
 
-  const loadConfig = () =>{
-    console.info ("LoadConfig")
-  }
-
-
 return (
-  
   <Container className='form-container' >
+    <div>Configuration Save and Restore</div>
     <Row>
       <ButtonToolbar className='button-tray'>
-        <Button variant = 'outline-primary' onClick = {()=> loadConfig()} >LOAD</Button>
-        <FileSave />
+        <JsonFileSave fileName={fileName} data={config}/>
+        <FileLoad onUpload={handleSubmit}/>
       </ButtonToolbar>
     </Row>
     <Row>
-      <div className = 'drop-box'>
-        <FileLoad />
-      </div>
-    </Row>
-    <Row>
-      <div> Filename {fileName}</div>
     </Row>
   </Container>
 )
 }
+
 
 
 export default ConfigFileForm

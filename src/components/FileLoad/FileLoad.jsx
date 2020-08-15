@@ -1,8 +1,8 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
+import './FileLoad.css'
 
-const FileLoad = () => {
-  const [filename, setFilename] = useState('<empty>')
+const FileLoad = ({onUpload}) => {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
     acceptedFiles = acceptedFiles.filter ( file => file.type === "application/json")
@@ -21,30 +21,29 @@ const FileLoad = () => {
         
       console.info ("reading file")
       try {
-        const binaryStr = reader.result
-          
-          console.log(binaryStr)
-          const jsonObject = JSON.parse(binaryStr)
+          const jsonObject = JSON.parse(reader.result)
+          console.info ('jsonObject', jsonObject)
+          onUpload(jsonObject)
         } catch (err) {
         console.info ("unable to load file: ", err)
       }
     }
-    reader.readAsArrayBuffer(file)
-   
+    // reader.readAsArrayBuffer(file)
+    reader.readAsText(file)
   })
-  }, [])
+  }, [onUpload])
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  console.info ('isDragActive ', isDragActive)
+  const dragStyle = isDragActive ? {
+    backgroundColor: '#007bff',
+    color: 'white'
+  } : {}
+  console.info(dragStyle)
   return (
-    <div {...getRootProps()}>
+    <div {...getRootProps()} className='drop-box' style={dragStyle}>
+      <div>Drop files here</div>
+      <div>Click File-Open</div>
       <input {...getInputProps()} />
-          <div>
-          <p>Drag files here</p>
-          <p> or</p>
-          <p>Click to select files</p>
-          </div>
-          <div>
-            {filename}
-          </div>
      </div>
   )
 }

@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import {Row, Col, Container, Button, ButtonToolbar} from 'react-bootstrap'
 import Alert from 'react-bootstrap/Alert'
 import {serverURI} from '../App.js'
-import {getJsonMessage, getExampleError} from '../selectors'
-import {fetchJsonHello, postExample} from '../actions'
+import {getJsonMessage, getExampleError, getConfiguration} from '../selectors'
+import {fetchJsonHello, postExample, saveConfiguration} from '../actions'
 import ExampleForm from '../containers/exampleForm'
 import ConfigFileForm from '../containers/configFileForm'
 
-const HomePage = ({jsonMessage, fetchJsonHello, postExample, exampleError }) => {
+const HomePage = ({jsonMessage, fetchJsonHello, postExample, exampleError, saveConfiguration, config }) => {
 
   useEffect( () => {
     console.info ('fetch ', `${serverURI}/json`)
@@ -22,6 +22,10 @@ const HomePage = ({jsonMessage, fetchJsonHello, postExample, exampleError }) => 
     postExample(formData)
   }
 
+  const handleConfig= (configData) => {
+    console.info ("Config:",  configData)
+    saveConfiguration(configData)
+  }
 
   console.info ("ExampleError: ", exampleError )
 
@@ -36,7 +40,7 @@ const HomePage = ({jsonMessage, fetchJsonHello, postExample, exampleError }) => 
 					  <div>ERROR: {exampleError} </div>
   				</Alert> )}
           
-          <ConfigFileForm />
+          <ConfigFileForm onSubmit= {handleConfig} config={config}/>
 
         <Container className='home-page-bottom' >
         <Row>
@@ -63,13 +67,14 @@ const mapStateToProps = state => {
   return {
     jsonMessage:     getJsonMessage(state),
     exampleError:    getExampleError(state),
-
+    config:          getConfiguration(state)
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchJsonHello: (url) => dispatch(fetchJsonHello(url)),
-  postExample: (data) => dispatch(postExample(data))
+  fetchJsonHello:     (url) => dispatch(fetchJsonHello(url)),
+  postExample:        (data) => dispatch(postExample(data)),
+  saveConfiguration:  (data) => dispatch(saveConfiguration(data))
 })
 
 export default connect(
@@ -79,26 +84,3 @@ export default connect(
 
 
 
-// If we want to just access the URL in this function vs using a saga and store:
- //   useEffect(() => {
-//     const getJson = async () =>  {
-//         console.info ("Fetching /json")
-//         try {
-//             const response = await fetch(`${serverURI}/json`, {
-//               method: 'GET',
-//               headers: {
-//                   Accept: 'application/json',
-//                   'Content-Type': 'application/json',
-//               }
-//           })
-//           console.info ('awaiting response')
-//           const data = await response.json()
-//           console.info ('have response:', data)
-//         } catch (err) {
-//           console.info ("Fetch Failed", err);
-//         }
-//     }
-
-//     getJson()
-
-// }, [])

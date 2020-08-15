@@ -28,7 +28,7 @@ function *getExample () {
   try {
       const response = yield call(axios.get, 'example');
       console.info ("requestUrl returns ", response)
-      const data = response.data
+      console.info (response.data)
       // yield put (setMessage(response.data))
  } catch (e) {
       console.info (e);

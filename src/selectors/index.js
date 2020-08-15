@@ -6,3 +6,4 @@ export const getJsonMessage = state => state.message.message
 export const getUrl = state => state.message.url
 export const getPostExampleData = state => state.example.postExample
 export const getExampleError = state => state.example.error
+export const getConfiguration = state =>state.config.configuration
