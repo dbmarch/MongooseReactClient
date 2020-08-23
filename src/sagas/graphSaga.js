@@ -1,7 +1,6 @@
-import { takeLatest, put, call, select} from 'redux-saga/effects';
+import { takeLatest, put, call} from 'redux-saga/effects';
 import {setGraphData} from '../actions'
 import {FETCH_GRAPH_DATA} from '../actions/action-types'
-import {getUrl} from '../selectors'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:8000/';
@@ -11,7 +10,7 @@ const requestUrl = async (url) => {
   console.info ("requestUrl ", url)
   
   try {
-    const response = await axios.get('file/json')
+    const response = await axios.get(url)
     console.info ('response: ', response)
     return response
   } catch( err ) {
@@ -21,10 +20,12 @@ const requestUrl = async (url) => {
 }
 
 
-function *fetchGraphData () {
-  console.info ("fetchJsonMessage")
+function *fetchGraphData (action) {
+  console.info ("fetchGraphData")
   try {
-      const url = yield select (getUrl)
+      const url = action.payload
+      console.info ('url', url)
+      
       const response = yield call(requestUrl, url);
       console.info ("requestUrl returns ", response)
       yield put (setGraphData(response.data))

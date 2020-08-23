@@ -10,8 +10,9 @@ import './graph-page.css'
 const GraphPage = ({graphData, fetchGraphData }) => {
 
   useEffect( () => {
-    console.info ('fetch ', `${serverURI}/file/graph`)
-    fetchGraphData(`${serverURI}/file/graph`)
+    const graph= `${serverURI}/file/graph/2`
+    console.info ('fetch ', graph)
+    fetchGraphData(graph)
   }, [ fetchGraphData ]
  )
 
