@@ -7,3 +7,4 @@ export const getUrl = state => state.message.url
 export const getPostExampleData = state => state.example.postExample
 export const getExampleError = state => state.example.error
 export const getConfiguration = state =>state.config.configuration
+export const getGraphData = state =>state.graph.data

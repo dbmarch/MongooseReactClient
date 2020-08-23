@@ -21,6 +21,10 @@ const Navigation = ({ isAuthenticated, authenticatedUser, logout }) => {
 				Home{' '}
 			</Nav.Link>
 
+			<Nav.Link as={NavLink} to="/graph" eventKey="1">
+				Graph{' '}
+			</Nav.Link>
+
 
 			<Nav.Link as={NavLink} to="/websocket" eventKey="1">
 				WebSocket{' '}

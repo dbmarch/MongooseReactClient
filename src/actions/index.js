@@ -18,3 +18,6 @@ export const postExample = actionCreator (action.POST_EXAMPLE)
 export const errorExample = actionCreator(action.ERROR_EXAMPLE)
 
 export const saveConfiguration = actionCreator(action.SAVE_CONFIGURATION)
+
+export const fetchGraphData = actionCreator(action.FETCH_GRAPH_DATA)
+export const setGraphData = actionCreator (action.SET_GRAPH_DATA)

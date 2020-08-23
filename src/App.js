@@ -6,6 +6,7 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import { isAuthenticated } from './selectors'
 
 import Home from './pages/home-page'
+import GraphPage from './pages/graph-page'
 import WebSocketPage from './pages/ws-page'
 
 export const serverURI = 'http://localhost:8000'
@@ -18,6 +19,7 @@ class App extends Component {
 				<div className="page">
 					<Switch>
 						<Route exact path="/" component={Home} />
+						<Route path='/graph' component={GraphPage} />
 						<Route path="/login" component={Home} />
 						<Route path="/websocket" component={WebSocketPage} />
 						<Route component={Home} />

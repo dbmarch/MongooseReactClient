@@ -1,0 +1,30 @@
+.graph-page-frame {
+  height: 100vh;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+}
+
+.graph-page-top {
+  padding: 1rem;
+
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ccc;
+  border-radius: 3%;
+}
+
+.graph-page-bottom {
+  margin: 1rem 0;
+  /* height: 50vh; */
+  padding: 1rem;
+
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ccc;
+  border-radius: 3%;
+
+}
+
+.graph-page-frame div.row {
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
