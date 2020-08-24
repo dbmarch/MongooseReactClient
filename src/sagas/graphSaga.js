@@ -14,7 +14,7 @@ const requestUrl = async (url) => {
     console.info ('response: ', response)
     return response
   } catch( err ) {
-    console.info (err);
+    console.info ("ERROR!", err);
     throw err
   }
 }
@@ -25,7 +25,6 @@ function *fetchGraphData (action) {
   try {
       const url = action.payload
       console.info ('url', url)
-      
       const response = yield call(requestUrl, url);
       console.info ("requestUrl returns ", response)
       yield put (setGraphData(response.data))
