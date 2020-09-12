@@ -11,29 +11,37 @@ const requestUrl = async (url) => {
   
   try {
     const response = await axios.get(url)
-    console.info ('response: ', response)
+    
+    console.info ('backfrom axios.get...')
+    console.info ('***** response: ', response)
     return response
   } catch( err ) {
+    console.info ('axios get threw exception...')
     console.info ("ERROR!", err);
     throw err
   }
+
 }
 
-
 function *fetchGraphData (action) {
-  console.info ("fetchGraphData")
+  console.info ("fetchGraphData SAGA")
   try {
       const url = action.payload
       console.info ('url', url)
       const response = yield call(requestUrl, url);
+
+      console.info ("back from requestUrl")
+
       console.info ("requestUrl returns ", response)
       yield put (setGraphData(response.data))
  } catch (e) {
+      console.info ( "Exception Occurred")
       console.info (e);
       return;
   }
 }
 
 export function* graphDataSaga() {
+ console.info ("graphDataSaga")
   yield takeLatest(FETCH_GRAPH_DATA, fetchGraphData);
 }
