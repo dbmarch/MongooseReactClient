@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import { connect } from 'react-redux'
-import { Container, Button} from 'react-bootstrap'
+import { Container, Button, Spinner} from 'react-bootstrap'
 import {serverURI} from '../App.js'
-import {getGraphData} from '../selectors'
+import {getGraphData, getGraphLoading} from '../selectors'
 import {fetchGraphData} from '../actions'
 import LineChart from '../components/LineChart/LineChart'
 import './graph-page.css'
 
-const GraphPage = ({graphData, fetchGraphData }) => {
+const GraphPage = ({graphData, fetchGraphData, loading }) => {
   const [graph, setGraph] = useState(1)
 
   useEffect( () => {
@@ -16,9 +16,13 @@ const GraphPage = ({graphData, fetchGraphData }) => {
     fetchGraphData(url)
   }, [ fetchGraphData, graph ]
  )
-
+  console.info (loading)
   return (
       <div className = "page">
+        {/* { loading && 
+        <Spinner animation="border" />
+        } */}
+       {!loading && 
        <Container className = 'home-page-frame'>
          <Container className='home-page-top' >
           <LineChart data= {graphData} />
@@ -28,7 +32,7 @@ const GraphPage = ({graphData, fetchGraphData }) => {
           <div> BOTTOM PANE</div>
           <Button  onClick={()=>{setGraph(graph === 1 ? 2 : 1)}}>TOGGLE</Button>
         </Container>
-      </Container>      
+        </Container> }  
     </div>
   )
 }
@@ -36,6 +40,7 @@ const GraphPage = ({graphData, fetchGraphData }) => {
 const mapStateToProps = state => {
   return {
     graphData:       getGraphData(state),
+    loading:         getGraphLoading(state),
     
   }
 }

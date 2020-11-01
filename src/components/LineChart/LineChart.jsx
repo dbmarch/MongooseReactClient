@@ -4,7 +4,10 @@ import Alert from 'react-bootstrap/Alert'
 
 const LineChart = ({ data }) => {
   console.info ('data ', data)
+
   const haveData = Array.isArray(data) ? true : false
+
+  console.info ("data is array ", haveData)
  
   return (
     <div className="App">

@@ -28,7 +28,20 @@ const data = (state = initialData, action = {}) => {
 	}
 }
 
+const initialLoading = false
+const loading = (state = initialData, action = {}) => {
+	switch (action.type) {
+		case SET_GRAPH_DATA:
+      return false
+    case FETCH_GRAPH_DATA:
+      return true
+		default:
+			return state
+	}
+}
+
 export default combineReducers({
   url,
-  data
+	data,
+	loading
 })
