@@ -2,11 +2,8 @@ import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import useWebSocket from 'react-use-websocket'
 import Spacer from '../components/ui/spacer'
 
-const SOCKET_URL_ONE = 'ws://localhost:8000'
-const SOCKET_URL_TWO = 'wss://localhost:8000'
-
-
-
+const SOCKET_URL_ONE = 'ws://localhost:8000/ws'
+const SOCKET_URL_TWO = 'wss://localhost:8000/wss'
 
 const CONNECTION_STATUS_CONNECTING = 0
 const CONNECTION_STATUS_OPEN = 1
