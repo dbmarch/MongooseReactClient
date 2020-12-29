@@ -37,10 +37,10 @@ export const WebSocketPage = () => {
   }, [lastMessage, getWebSocket]);
  
   const connectionStatus = {
-    [ReadyState.CONNECTION_STATUS_CONNECTING]: 'Connecting',
-    [ReadyState.CONNECTION_STATUS_OPEN]: 'Open',
-    [ReadyState.CONNECTION_STATUS_CLOSING]: 'Closing',
-    [ReadyState.CONNECTION_STATUS_CLOSED]: 'Closed',
+    [ReadyState.CONNECTING]: 'Connecting',
+    [ReadyState.OPEN]: 'Open',
+    [ReadyState.CLOSING]: 'Closing',
+    [ReadyState.CLOSED]: 'Closed',
     [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
   }[readyState];
  
@@ -48,7 +48,7 @@ export const WebSocketPage = () => {
     <div className="page">
       <button onClick={handleClickChangeSocketUrl}>{currentSocketUrl}</button>
       <Spacer lines={2} />
-      <button onClick={handleClickSendMessage} disabled={readyState !== readyState.CONNECTION_STATUS_OPEN}>Click Me to send 'Hello'</button>
+      <button onClick={handleClickSendMessage} disabled={readyState !== ReadyState.OPEN}>Click Me to send 'Hello'</button>
       <Spacer lines={2} />
       <span>Websocket Status: {connectionStatus}</span>
       <Spacer lines={2} />
