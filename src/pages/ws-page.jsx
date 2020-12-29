@@ -1,14 +1,9 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react'
-import useWebSocket from 'react-use-websocket'
+import useWebSocket, { ReadyState }  from 'react-use-websocket'
 import Spacer from '../components/ui/spacer'
 
 const SOCKET_URL_ONE = 'ws://localhost:8000/ws'
 const SOCKET_URL_TWO = 'wss://localhost:8000/wss'
-
-const CONNECTION_STATUS_CONNECTING = 0
-const CONNECTION_STATUS_OPEN = 1
-const CONNECTION_STATUS_CLOSING = 2
-const CONNECTION_STATUS_CLOSED = 3
 
 export const WebSocketPage = () => {
   const STATIC_OPTIONS = useMemo(() => ({
@@ -21,7 +16,7 @@ export const WebSocketPage = () => {
   
   const [currentSocketUrl, setCurrentSocketUrl] = useState(SOCKET_URL_ONE)
   const [messageHistory, setMessageHistory] = useState([]);
-  const [sendMessage, lastMessage, readyState, getWebSocket] = useWebSocket(currentSocketUrl, STATIC_OPTIONS);
+  const {sendMessage, lastMessage, readyState, getWebSocket} = useWebSocket(currentSocketUrl, STATIC_OPTIONS);
 
  
   const handleClickChangeSocketUrl = useCallback(() => {
@@ -42,17 +37,18 @@ export const WebSocketPage = () => {
   }, [lastMessage, getWebSocket]);
  
   const connectionStatus = {
-    [CONNECTION_STATUS_CONNECTING]: 'Connecting',
-    [CONNECTION_STATUS_OPEN]: 'Open',
-    [CONNECTION_STATUS_CLOSING]: 'Closing',
-    [CONNECTION_STATUS_CLOSED]: 'Closed',
+    [ReadyState.CONNECTION_STATUS_CONNECTING]: 'Connecting',
+    [ReadyState.CONNECTION_STATUS_OPEN]: 'Open',
+    [ReadyState.CONNECTION_STATUS_CLOSING]: 'Closing',
+    [ReadyState.CONNECTION_STATUS_CLOSED]: 'Closed',
+    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
   }[readyState];
  
   return (
     <div className="page">
       <button onClick={handleClickChangeSocketUrl}>{currentSocketUrl}</button>
       <Spacer lines={2} />
-      <button onClick={handleClickSendMessage} disabled={readyState !== CONNECTION_STATUS_OPEN}>Click Me to send 'Hello'</button>
+      <button onClick={handleClickSendMessage} disabled={readyState !== readyState.CONNECTION_STATUS_OPEN}>Click Me to send 'Hello'</button>
       <Spacer lines={2} />
       <span>Websocket Status: {connectionStatus}</span>
       <Spacer lines={2} />
