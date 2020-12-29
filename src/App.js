@@ -8,6 +8,7 @@ import { isAuthenticated } from './selectors'
 import Home from './pages/home-page'
 import GraphPage from './pages/graph-page'
 import WebSocketPage from './pages/ws-page'
+import SignalPage from './pages/signal-page'
 
 export const serverURI = 'http://localhost:8000'
 
@@ -16,15 +17,14 @@ class App extends Component {
 		return (
 			<React.Fragment>
 				<Navigation />
-				<div className="page">
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route path='/graph' component={GraphPage} />
+						<Route path='/signal' component={SignalPage} />
 						<Route path="/login" component={Home} />
 						<Route path="/websocket" component={WebSocketPage} />
 						<Route component={Home} />
 					</Switch>
-				</div>
 				</React.Fragment>
 
 		)

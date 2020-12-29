@@ -4,9 +4,8 @@ import './textBox.css'
 
 
 
-const TextBox = ({name, placeholder, onChange}) => {
-  const textElement = useRef('hi')
-
+const TextBox = ({name, placeholder, onChange, defaultValue}) => {
+  const textElement = useRef("22")
   const handleOnBlur = () => {
     onChange(textElement.current.value)
   }
@@ -19,6 +18,7 @@ const TextBox = ({name, placeholder, onChange}) => {
         </InputGroup.Prepend>
         <FormControl 
             aria-label="Small" 
+            defaultValue={defaultValue}
             aria-describedby="inputGroup-sizing-sm" 
             placeholder={placeholder}
             onBlur = { handleOnBlur }

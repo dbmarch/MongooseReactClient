@@ -49,7 +49,7 @@ export const WebSocketPage = () => {
   }[readyState];
  
   return (
-    <div>
+    <div className="page">
       <button onClick={handleClickChangeSocketUrl}>{currentSocketUrl}</button>
       <Spacer lines={2} />
       <button onClick={handleClickSendMessage} disabled={readyState !== CONNECTION_STATUS_OPEN}>Click Me to send 'Hello'</button>
