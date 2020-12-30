@@ -6,28 +6,11 @@ import {serverURI} from '../App.js'
 import { LineChart, Line, XAxis, YAxis,
    Tooltip, CartesianGrid, Legend, Brush
    } from 'recharts';
-import {  scaleLog } from 'd3-scale';
 import {getSignalData, getSignalLoading} from '../selectors'
 import {fetchSignalData} from '../actions'
-// import {exists} from 'lodash'
 import Loader from 'react-loader-spinner'
-
 import './signal-page.css'
 
-// const data = [
-//   { name: 'Page A', uv: 1000, pv: 2400, amt: 2400, uvError: [75, 20] },
-//   { name: 'Page B', uv: 300, pv: 4567, amt: 2400, uvError: [90, 40] },
-//   { name: 'Page C', uv: 280, pv: 1398, amt: 2400, uvError: 40 },
-//   { name: 'Page D', uv: 200, pv: 9800, amt: 2400, uvError: 20 },
-//   { name: 'Page E', uv: 278, pv: null, amt: 2400, uvError: 28 },
-//   { name: 'Page F', uv: 189, pv: 4800, amt: 2400, uvError: [90, 20] },
-//   { name: 'Page G', uv: 189, pv: 4800, amt: 2400, uvError: [28, 40] },
-//   { name: 'Page H', uv: 189, pv: 4800, amt: 2400, uvError: 28 },
-//   { name: 'Page I', uv: 189, pv: 4800, amt: 2400, uvError: 28 },
-//   { name: 'Page J', uv: 189, pv: 4800, amt: 2400, uvError: [15, 60] },
-// ]
-
-const scale = scaleLog().base(10).nice()
 
 const SignalPage = ({signalData, fetchSignalData, loading }) => {
   const [freq1, setFreq1] = useState (1100)
@@ -50,12 +33,7 @@ const SignalPage = ({signalData, fetchSignalData, loading }) => {
   
   return (
     <>
-    {loading && 
-      <div className="signal-page-spinner">
-        <Loader type="Circles" color="#00BFFF" height={200} width={200}/>
-        </div>        
-      }
-    {!loading && 
+   
       <Container fluid className="signal-page-frame">
        <Row>
           <Col xs={2} className="signal-page-left">      
@@ -64,6 +42,12 @@ const SignalPage = ({signalData, fetchSignalData, loading }) => {
              </div>
           </Col>
           <Col  className="signal-page-right">
+            {loading && 
+            <div className="signal-page-spinner">
+            <Loader type="Circles" color="#00BFFF" height={200} width={200}/>
+            </div>        
+            }
+            {!loading && 
              <div className='line-chart-wrapper mt-5' >
                <LineChart
                 width={800}
@@ -80,10 +64,10 @@ const SignalPage = ({signalData, fetchSignalData, loading }) => {
                 <Line type='monotone' dataKey='y'  stroke='#ff7300' />
                 <Brush dataKey="name" height={30} />
               </LineChart>  
-            </div>  
+            </div>}
           </Col> 
         </Row>
-     </Container>}
+     </Container>
     </>
   )
 }
