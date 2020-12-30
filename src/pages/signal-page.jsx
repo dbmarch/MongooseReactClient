@@ -4,11 +4,13 @@ import { Container, Row, Col} from 'react-bootstrap'
 import SignalForm from '../containers/signalForm'
 import {serverURI} from '../App.js'
 import { LineChart, Line, XAxis, YAxis,
-   Tooltip, CartesianGrid, Legend, 
+   Tooltip, CartesianGrid, Legend, Brush
    } from 'recharts';
 import {  scaleLog } from 'd3-scale';
 import {getSignalData, getSignalLoading} from '../selectors'
 import {fetchSignalData} from '../actions'
+// import {exists} from 'lodash'
+import Loader from 'react-loader-spinner'
 
 import './signal-page.css'
 
@@ -28,61 +30,67 @@ import './signal-page.css'
 const scale = scaleLog().base(10).nice()
 
 const SignalPage = ({signalData, fetchSignalData, loading }) => {
-  const [config,setConfig] = useState(1000)
+  const [freq1, setFreq1] = useState (1100)
+  const [freq2, setFreq2] = useState (1200)
+  const [samples, setSamples] = useState (600)
   useEffect( () => {
-    const url = `${serverURI}/file/signal`
-    const {freq, samples} = config
-    console.info ('freq ', freq)
-    console.info ('samples ', samples)
+    const url = `${serverURI}/file/signal?freq=${freq1}&samples=${samples}`
     console.info ('fetch ', url)
     fetchSignalData(url)
-  }, [ fetchSignalData,config ]
+  }, [ fetchSignalData,freq1,samples ]
  )
 
   const onSubmit = (data)=>{
     console.info ("Data: ", data)
-    setConfig(data)
+    setFreq1(parseInt(data.freq1))
+    setFreq2(parseInt(data.freq2))
+    setSamples(parseInt(data.samples))
   }
-
- 
-  console.info(config)
+  console.info(freq1, freq2, samples)
+  
   return (
-    <Container fluid className="signal-page-frame">
+    <>
+    {loading && 
+      <div className="signal-page-spinner">
+        <Loader type="Circles" color="#00BFFF" height={200} width={200}/>
+        </div>        
+      }
+    {!loading && 
+      <Container fluid className="signal-page-frame">
        <Row>
           <Col xs={2} className="signal-page-left">      
             <div className="mt-4">
-             <SignalForm onSubmit = {onSubmit}/>
+             <SignalForm initialValue={{freq1, freq2, samples}} onSubmit = {onSubmit}/>
              </div>
           </Col>
           <Col  className="signal-page-right">
-             GRAPH
-             <div className='line-chart-wrapper'>
-
-           <LineChart
-            width={800}
-            height={400}
-            data={signalData}
-            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-            syncId="test"
-          >
-            <CartesianGrid stroke='#f5f5f5'   />
-            <Legend />
-            <XAxis dataKey="name" axisLine={{ stroke: 'red' }} stroke='blue'/>
-            <YAxis scale={scale} domain={[0.01, 'auto']} ticks={[0.01, 0.1, 1, 10, 100, 1000]} />
-            <Tooltip />
-            <Line type='monotone' dataKey='uv'  stroke='#ff7300' />
-          </LineChart>
-        </div>
-
+             <div className='line-chart-wrapper mt-5' >
+               <LineChart
+                width={800}
+                height={400}
+                data={signalData}
+                margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+                syncId="test"
+              >
+                <CartesianGrid stroke='#f5f5f5'   />
+                <Legend />
+                <XAxis dataKey="x" axisLine={{ stroke: 'red' }} stroke='blue'/>
+                <YAxis />
+                <Tooltip />
+                <Line type='monotone' dataKey='y'  stroke='#ff7300' />
+                <Brush dataKey="name" height={30} />
+              </LineChart>  
+            </div>  
           </Col> 
-      </Row>
-    </Container>
+        </Row>
+     </Container>}
+    </>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    graphData:       getSignalData(state),
+    signalData:       getSignalData(state),
     loading:         getSignalLoading(state),
   }
 }

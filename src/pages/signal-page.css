@@ -5,6 +5,17 @@
   overflow: auto;
 }
 
+.signal-page-spinner {
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+
 .signal-page-left {
   background-color: #f5f5f5;
   min-height: 94vh;

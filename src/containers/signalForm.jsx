@@ -10,19 +10,20 @@ const mixItemList = [
 ]
 const defaultMixItem = mixItemList[0].value
 
-const SignalForm = ({onSubmit}) => {
-
+const SignalForm = ({initialValue, onSubmit}) => {
+  
   const [mixOption,setMixOption] = useState(defaultMixItem)
-  const [freq1, setFreq1] = useState(1000)
-  const [freq2, setFreq2] = useState(1100)
-  const [numSamples,setNumSamples] = useState (500)
+  const [freq1, setFreq1] = useState(initialValue.freq1)
+  const [freq2, setFreq2] = useState(initialValue.freq2)
+  const [samples,setSamples] = useState (initialValue.samples)
+  
   
   const handleSubmit= () => {
     const formData = {
       mixOption,
       freq1,
       freq2,
-      numSamples
+      samples
     }
     // console.info ("Submit Form", formData )
     onSubmit(formData)
@@ -75,10 +76,10 @@ const SignalForm = ({onSubmit}) => {
               <Form.Row>
                 <TextBox name = "samples" 
                   placeholder="# Samples"
-                  defaultValue={numSamples}
+                  defaultValue={samples}
                   onChange = { (value) => {
-                  console.info('NumSamples = ', value)
-                  setNumSamples(value)
+                  console.info('Samples = ', value)
+                  setSamples(value)
                 }}># Samples</TextBox>
               </Form.Row>
             </fieldset>  
