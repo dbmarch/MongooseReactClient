@@ -16,11 +16,13 @@ const SignalPage = ({signalData, fetchSignalData, loading }) => {
   const [freq1, setFreq1] = useState (1100)
   const [freq2, setFreq2] = useState (1200)
   const [samples, setSamples] = useState (600)
+  const [displaySet, setDisplaySet] = useState("f1")
+
   useEffect( () => {
-    const url = `${serverURI}/file/signal?freq=${freq1}&samples=${samples}`
+    const url = `${serverURI}/file/signal?freq1=${freq1}&samples=${samples}?freq2=${freq2}`
     console.info ('fetch ', url)
     fetchSignalData(url)
-  }, [ fetchSignalData,freq1,samples ]
+  }, [ fetchSignalData,freq1,freq2,samples ]
  )
 
   const onSubmit = (data)=>{
@@ -28,12 +30,12 @@ const SignalPage = ({signalData, fetchSignalData, loading }) => {
     setFreq1(parseInt(data.freq1))
     setFreq2(parseInt(data.freq2))
     setSamples(parseInt(data.samples))
+    setDisplaySet(data.mixOption)
   }
-  console.info(freq1, freq2, samples)
+  console.info(freq1, freq2, samples, displaySet)
   
   return (
     <>
-   
       <Container fluid className="signal-page-frame">
        <Row>
           <Col xs={2} className="signal-page-left">      
@@ -61,7 +63,7 @@ const SignalPage = ({signalData, fetchSignalData, loading }) => {
                 <XAxis dataKey="x" axisLine={{ stroke: 'red' }} stroke='blue'/>
                 <YAxis />
                 <Tooltip />
-                <Line type='monotone' dataKey='y'  stroke='#ff7300' />
+                <Line type='monotone' dataKey={displaySet}  stroke='#ff7300' />
                 <Brush dataKey="name" height={30} />
               </LineChart>  
             </div>}

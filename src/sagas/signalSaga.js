@@ -10,17 +10,11 @@ const requestUrl = async (url) => {
   console.info ("requestUrl ", url)
   
   try {
-    const response = await axios.get(url)
-    
-    console.info ('backfrom axios.get...')
-    console.info ('***** response: ', response)
-    return response
+    return  await axios.get(url)
   } catch( err ) {
-    console.info ('axios get threw exception...')
-    console.info ("ERROR!", err);
+    console.info ("Axios exception", err);
     throw err
   }
-
 }
 
 function *fetchSignalData (action) {
@@ -29,7 +23,6 @@ function *fetchSignalData (action) {
       const url = action.payload
       console.info ('url', url)
       const response = yield call(requestUrl, url);
-
       console.info ("requestUrl returns ", response)
       yield put (setSignalData(response.data))
  } catch (e) {

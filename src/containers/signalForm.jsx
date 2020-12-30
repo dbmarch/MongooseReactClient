@@ -4,8 +4,9 @@ import RadioGroup from '../components/radioGroup/radioGroup'
 import TextBox from '../components/textBox/textBox'
 
 const mixItemList = [
-  { name: "Off", value: "off"}, 
-  { name: "Mix", value: "mix"},
+  { name: "freq1", value: "f1"}, 
+  { name: "freq2", value: "f2"}, 
+  { name: "Mix",  value: "mix"},
 
 ]
 const defaultMixItem = mixItemList[0].value
