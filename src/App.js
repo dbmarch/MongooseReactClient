@@ -7,6 +7,7 @@ import { isAuthenticated } from './selectors'
 
 import Home from './pages/home-page'
 import GraphPage from './pages/graph-page'
+import Graph2Page from './pages/graph2-page'
 import WebSocketPage from './pages/ws-page'
 import SignalPage from './pages/signal-page'
 
@@ -20,6 +21,7 @@ class App extends Component {
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route path='/graph' component={GraphPage} />
+						<Route path='/graph2' component={Graph2Page} />
 						<Route path='/signal' component={SignalPage} />
 						<Route path="/login" component={Home} />
 						<Route path="/websocket" component={WebSocketPage} />

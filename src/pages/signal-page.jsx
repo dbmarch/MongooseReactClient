@@ -3,13 +3,10 @@ import { connect } from 'react-redux'
 import { Container, Row, Col} from 'react-bootstrap'
 import SignalForm from '../containers/signalForm'
 
-// import {LineChart} from 'recharts'
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, ReferenceLine, ReferenceArea,
-  ReferenceDot, Tooltip, CartesianGrid, Legend, Brush, ErrorBar, AreaChart, Area,
-  Label, LabelList } from 'recharts';
-import { scalePow, scaleLog } from 'd3-scale';
-// import CustomLineDot from './CustomLineDot';
-// import { changeNumberOfData } from './utils';
+import { LineChart, Line, XAxis, YAxis,
+   Tooltip, CartesianGrid, Legend, 
+   } from 'recharts';
+import {  scaleLog } from 'd3-scale';
 
 import './signal-page.css'
 
@@ -27,13 +24,11 @@ const data = [
 ];
 
 const scale = scaleLog().base(10).nice();
-const specifiedDomain = [0.01, 'auto'];
-const specifiedTicks = [0.01, 0.1, 1, 10, 100, 1000];
-const specifiedMargin = { top: 20, right: 20, bottom: 20, left: 20 };
 
 const SignalPage = () => {
+  
   const onSubmit = (data)=>{
-    {console.info ("Data: ", data)}
+    console.info ("Data: ", data)
   }
 
   return (
@@ -49,33 +44,20 @@ const SignalPage = () => {
              <div className='line-chart-wrapper'>
 
            <LineChart
-            width={400}
+            width={800}
             height={400}
             data={data}
             margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
             syncId="test"
           >
-            <CartesianGrid stroke='#f5f5f5' verticalFill={['rgba(0, 0, 0, 0.2)', 'rgba(255, 255, 255, 0.3)']} horizontalFill={['#ccc', '#fff']} />
+            <CartesianGrid stroke='#f5f5f5'   />
             <Legend />
-            <XAxis dataKey="name" axisLine={{ stroke: 'red' }} />
+            <XAxis dataKey="name" axisLine={{ stroke: 'red' }} stroke='blue'/>
             <YAxis scale={scale} domain={[0.01, 'auto']} ticks={[0.01, 0.1, 1, 10, 100, 1000]} />
             <Tooltip />
             <Line type='monotone' dataKey='uv'  stroke='#ff7300' />
           </LineChart>
         </div>
-
-             <LineChart
-              width={400}
-              height={400}
-              data={data}
-              margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-            >
-              <XAxis dataKey="name" />
-              <Tooltip />
-              <CartesianGrid stroke="#f5f5f5" />
-              <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />
-              <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />
-            </LineChart>
 
           </Col> 
       </Row>

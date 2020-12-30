@@ -29,7 +29,7 @@ const data = (state = initialData, action = {}) => {
 }
 
 const initialLoading = false
-const loading = (state = initialData, action = {}) => {
+const loading = (state = initialLoading, action = {}) => {
 	switch (action.type) {
 		case SET_GRAPH_DATA:
       return false

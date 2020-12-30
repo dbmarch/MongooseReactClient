@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Row, Col, Container, Button, Form} from 'react-bootstrap'
+import {Row,Container, Button, Form} from 'react-bootstrap'
 import RadioGroup from '../components/radioGroup/radioGroup'
 import TextBox from '../components/textBox/textBox'
 

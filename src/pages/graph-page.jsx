@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { connect } from 'react-redux'
-import { Container, Button, Spinner} from 'react-bootstrap'
+import { Container, Button} from 'react-bootstrap'
 import {serverURI} from '../App.js'
 import {getGraphData, getGraphLoading} from '../selectors'
 import {fetchGraphData} from '../actions'
