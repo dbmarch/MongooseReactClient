@@ -19,7 +19,7 @@ const SignalPage = ({signalData, fetchSignalData, loading }) => {
   const [displaySet, setDisplaySet] = useState("f1")
 
   useEffect( () => {
-    const url = `${serverURI}/file/signal?freq1=${freq1}&samples=${samples}?freq2=${freq2}`
+    const url = `${serverURI}/file/signal?freq1=${freq1}&samples=${samples}&freq2=${freq2}`
     console.info ('fetch ', url)
     fetchSignalData(url)
   }, [ fetchSignalData,freq1,freq2,samples ]
