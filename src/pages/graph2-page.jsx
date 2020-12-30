@@ -89,10 +89,10 @@ const scale = scaleLog().base(10).nice()
               onMouseLeave={handleLegendMouseLeave}
             />
             <XAxis type="number" dataKey="pv" height={40} label={<Hello />}>
-              <Label value="x轴" position="insideBottom" />
+              <Label value="x" position="insideBottom" />
             </XAxis>
             <YAxis type="number" unit="%" width={80}>
-              <Label value="y轴" position="insideLeft" angle={90} />
+              <Label value="y" position="insideLeft" angle={90} />
             </YAxis>
             <Tooltip trigger="click" />
             <Line

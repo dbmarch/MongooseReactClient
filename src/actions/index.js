@@ -21,3 +21,6 @@ export const saveConfiguration = actionCreator(action.SAVE_CONFIGURATION)
 
 export const fetchGraphData = actionCreator(action.FETCH_GRAPH_DATA)
 export const setGraphData = actionCreator (action.SET_GRAPH_DATA)
+
+export const fetchSignalData = actionCreator(action.FETCH_SIGNAL_DATA)
+export const setSignalData = actionCreator (action.SET_SIGNAL_DATA)
